@@ -38,7 +38,7 @@ class App extends Component {
   updateTips() {
     api.get("tips/")
     .then(results => {
-      let tips = results.data.map((tip) => {
+      let tips = results.data.results.map((tip) => {
         return(
           <Tip
             key={tip.id}

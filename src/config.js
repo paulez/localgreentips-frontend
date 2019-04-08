@@ -1,9 +1,9 @@
 const dev = {
-  api: "https://localhost:8000/",
+  api: "http://localhost:8000/",
 };
 
 const prod = {
-  api: "https://api.localgreentips.net/",
+  api: "http://api.localgreentips.net/",
 };
 
 const config = process.env.REACT_APP_STAGE === 'dev'

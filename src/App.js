@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Navbar from 'react-bootstrap/Navbar';
 import './App.css';
 import api from './api.js';
+import Header from './Header.js';
 
 
 class Tip extends Component {
@@ -75,9 +76,7 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <Navbar>
-          <Navbar.Brand>Local Green Tips</Navbar.Brand>
-        </Navbar>
+        <Header/>
         <Container>
           <Row className="Tips-list">
             <Col md={{ span: 8, offset: 2 }}>

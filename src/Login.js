@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -6,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Header from './Header.js';
 import api from './api.js';
+import { login } from './actions';
 
 class Login extends Component {
 
@@ -14,8 +16,7 @@ class Login extends Component {
     this.state = {
       form_username: "",
       form_email: "",
-      form_valid: null,
-      form_error: '',
+      form_invalid: null,
     }
   }
 
@@ -26,7 +27,13 @@ class Login extends Component {
       password: this.state.form_password,
     })
     .then(data => {
-      this.props.setUser(data.username);
+      this.props.dispatch(login(data.username));
+    })
+    .catch(error => {
+      this.setState({
+        form_invalid: true,
+      });
+      console.log("login error");
     })
     event.preventDefault();
   }
@@ -58,11 +65,19 @@ class Login extends Component {
                     type="text"
                     placeholder="Enter username"
                     onChange={this.handleUsernameChange}
+                    isInvalid={this.state.form_invalid}
                     ref={ref => { this.usernameInput = ref; }}/>
                 </Form.Group>
                  <Form.Group controlId="formBasicPassword">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Password" onChange={this.handlePasswordChange} />
+                  <Form.Control 
+                    type="password"
+                    placeholder="Password"
+                    isInvalid={this.state.form_invalid}
+                    onChange={this.handlePasswordChange} />
+                  <Form.Control.Feedback type="invalid">
+                    Cannot login, please retry with a different username or password.
+                  </Form.Control.Feedback>
                 </Form.Group>
                 <Button variant="primary" type="submit">
                   Login
@@ -76,4 +91,13 @@ class Login extends Component {
   }
 }
 
-export default Login;
+
+function mapStatetoProps(state) {
+  const { username } = state.user;
+  return {
+    username
+  };
+}
+
+const connectedLogin = connect(mapStatetoProps)(Login);
+export { connectedLogin as Login };

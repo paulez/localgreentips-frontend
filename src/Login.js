@@ -28,6 +28,7 @@ class Login extends Component {
     })
     .then(data => {
       this.props.dispatch(login(data.username));
+      this.props.history.push("/");
     })
     .catch(error => {
       this.setState({

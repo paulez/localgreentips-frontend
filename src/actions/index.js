@@ -33,9 +33,9 @@ function fetchTips() {
 
 function shouldFetchTips(state) {
   const tips = state.tips
-  if (!tips) {
+  if (tips.items === undefined || tips.items.length === 0) {
     return true
-  } else if (tips.ifFetching) {
+  } else if (tips.isFetching) {
     return false
   } else {
     return tips.didInvalidate

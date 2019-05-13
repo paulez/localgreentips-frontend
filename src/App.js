@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -6,8 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import './App.css';
 import Header from './Header.js';
 import Tips from './components/Tips.js';
-
-  
+import { fetchTipsIfNeeded } from './actions';
 
 class App extends Component {
 
@@ -18,14 +18,25 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.dispatch(fetchTipsIfNeeded());
+  }
+
+  componentDidUpdate() {
+    this.props.dispatch(fetchTipsIfNeeded());
+  }
+
   render() {
+    const { user, tips } = this.props
     return (
       <React.Fragment>
-        <Header/>
+        <Header user={user} />
         <Container>
           <Row className="Tips-list">
             <Col md={{ span: 8, offset: 2 }}>
-              <Tips/>
+              {tips.items.length > 0 && (
+                <Tips tips={tips} />
+              )}
             </Col>
           </Row>
         </Container>
@@ -34,4 +45,12 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStatetoProps(state) {
+  const { user, tips } = state;
+  return {
+    user,
+    tips
+  };
+}
+
+export default connect(mapStatetoProps)(App);

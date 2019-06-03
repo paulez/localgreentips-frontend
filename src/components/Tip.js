@@ -12,6 +12,7 @@ class Tip extends Component {
   }
 
   render() {
+    var user = this.username();
     return (
       <Card className="Tip">
         <Card.Title className="Tip-header">
@@ -21,7 +22,7 @@ class Tip extends Component {
           {this.props.text}
         </Card.Text>
         <Card.Footer>
-          <small>{this.username}</small>
+          <small>{user}</small>
         </Card.Footer>
       </Card>
     );

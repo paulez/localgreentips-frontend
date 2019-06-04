@@ -30,7 +30,7 @@ class App extends Component {
     const { user, tips } = this.props
     return (
       <React.Fragment>
-        <Header user={user} />
+        <Header />
         <Container>
           <Row className="Tips-list">
             <Col md={{ span: 8, offset: 2 }}>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Nav, Navbar, Form, FormControl } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
+import HeaderLogin from './components/HeaderLogin.js'
 
 class Header extends Component {
   constructor(props) {
@@ -32,15 +34,18 @@ class Header extends Component {
             <Nav.Link>About</Nav.Link>
           </LinkContainer>
         </Nav>
-        <Nav className="mr-auto">
-          <LinkContainer to='/login'>
-            <Nav.Link>Login</Nav.Link>
-          </LinkContainer>
-        </Nav>
+        <HeaderLogin user={this.props.user} />
         </Navbar.Collapse>
       </Navbar>
     );
   }
 }
 
-export default Header;
+function mapStatetoProps(state) {
+  const { user } = state;
+  return {
+    user
+  };
+}
+
+export default connect(mapStatetoProps)(Header);

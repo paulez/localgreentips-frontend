@@ -5,6 +5,11 @@ export const login = username => ({
   username
 })
 
+export const logout = username => ({
+  type: 'LOGOUT',
+  username
+})
+
 function requestTips() {
   return {
     type: 'REQUEST_TIPS'

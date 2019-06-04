@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
+import { Link } from 'react-router-dom';
 
 class Tip extends Component {
 
   username() {
-    if(this.props.tipper) {
-      return this.props.tipper.username;
+    const { tipper } = this.props.tip;
+    if(tipper) {
+      return tipper.username;
     } else {
       return "";
     }
@@ -13,13 +15,16 @@ class Tip extends Component {
 
   render() {
     var user = this.username();
+    const { tip } = this.props;
     return (
       <Card className="Tip">
         <Card.Title className="Tip-header">
-          {this.props.title}
+          <Link to={`/tips/${tip.id}`}>
+            {tip.title}
+          </Link>
         </Card.Title>
         <Card.Text>
-          {this.props.text}
+          {tip.text}
         </Card.Text>
         <Card.Footer>
           <small>{user}</small>

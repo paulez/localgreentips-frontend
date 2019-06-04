@@ -11,9 +11,7 @@ class Tips extends Component {
         {tips.items.map((tip) => 
           <Tip
             key={tip.id}
-            title={tip.title}
-            text={tip.text}
-            tipper={tip.tipper}
+            tip={tip}
           />
         )}
       </CardColumns>

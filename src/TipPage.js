@@ -15,10 +15,6 @@ class TipPage extends Component {
     this.props.dispatch(fetchSingleTipIfNeeded(this.props.index));
   }
 
-  componentDidUpdate() {
-    this.props.dispatch(fetchSingleTipIfNeeded(this.props.index));
-  }
-
   render() {
     const { tip, tips } = this.props
     if ( tips.isFetching ) {

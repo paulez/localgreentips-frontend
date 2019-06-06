@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Nav, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
 import api from '../api';
-import { logout } from '../actions';
+import { logout, fetchCurrentUserIfNeeded } from '../actions';
 
 class HeaderLogin extends Component {
   
@@ -23,6 +23,10 @@ class HeaderLogin extends Component {
         console.log("logout error");
       })
     event.preventDefault();
+  }
+
+  componentDidMount() {
+    this.props.dispatch(fetchCurrentUserIfNeeded());
   }
 
   render () {

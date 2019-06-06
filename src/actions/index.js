@@ -66,6 +66,21 @@ function shouldFetchSingleTip(state, tipId) {
   }
 }
 
+function fetchCurrentUser() {
+  return dispatch => {
+    return api.get("rest-auth/user/")
+      .then(results => dispatch(login(results.data.username))) 
+  }
+}
+
+function shouldFetchCurrentUser(state) {
+  if (state.user.username) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 export function fetchTipsIfNeeded() {
   return (dispatch, getState) => {
     if (shouldFetchTips(getState())) {
@@ -78,6 +93,14 @@ export function fetchSingleTipIfNeeded(tipId) {
   return (dispatch, getState) => {
     if (shouldFetchSingleTip(getState(), tipId)) {
       return dispatch(fetchSingleTip(tipId))
+    }
+  }
+}
+
+export function fetchCurrentUserIfNeeded() {
+  return (dispatch, getState) => {
+    if (shouldFetchCurrentUser(getState())) {
+      return dispatch(fetchCurrentUser())
     }
   }
 }

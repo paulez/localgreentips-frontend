@@ -7,21 +7,36 @@ import Alert from 'react-bootstrap/Alert';
 import './App.css';
 import Header from './Header.js';
 import Tip from './components/Tip.js';
-import { fetchTipsIfNeeded } from './actions';
+import { fetchSingleTipIfNeeded } from './actions';
 
 class TipPage extends Component {
 
   componentDidMount() {
-    this.props.dispatch(fetchTipsIfNeeded());
+    this.props.dispatch(fetchSingleTipIfNeeded(this.props.index));
   }
 
   componentDidUpdate() {
-    this.props.dispatch(fetchTipsIfNeeded());
+    this.props.dispatch(fetchSingleTipIfNeeded(this.props.index));
   }
 
   render() {
-    const { tip } = this.props
-    if (tip) {
+    const { tip, tips } = this.props
+    if ( tips.isFetching ) {
+      return (
+        <React.Fragment>
+          <Header />
+          <Container>
+            <Row className="Tips-list">
+              <Col md={{ span: 4, offset: 2 }}>
+                <Alert variant="warning">
+                  Loading tip...
+                </Alert>
+              </Col>
+            </Row>
+          </Container>
+        </React.Fragment>
+      );
+    } else if (tip) {
       return (
         <React.Fragment>
           <Header />
@@ -56,9 +71,17 @@ class TipPage extends Component {
 function mapStatetoProps(state, ownProps) {
   const { tips } = state;
   const index = Number(ownProps.match.params.index);
-  const tip = tips.items.find( tip => tip.id === index);
+  var tip;
+  if ( tips.items ) {
+    tip = tips.items.find( item => item.id === index);
+  } else {
+    tip = undefined;
+  }
+
   return {
-    tip
+    tips,
+    tip,
+    index
   };
 }
 

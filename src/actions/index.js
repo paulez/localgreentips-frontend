@@ -43,7 +43,26 @@ function shouldFetchTips(state) {
   } else if (tips.isFetching) {
     return false
   } else {
-    return tips.didInvalidate
+    return !tips.didLoalAll
+  }
+}
+
+function fetchSingleTip(tipId) {
+  return dispatch => {
+    dispatch(requestTips)
+    return api.get("tips/" + tipId)
+      .then(results => dispatch(addTip(results.data)))
+  }
+}
+
+function shouldFetchSingleTip(state, tipId) {
+  const tips = state.tips;
+  if (tips.items === undefined || tips.items.length === 0) {
+    return true
+  } else if (tips.items.find( tip => tip.id === tipId)) {
+    return false
+  } else {
+    return true
   }
 }
 
@@ -51,6 +70,14 @@ export function fetchTipsIfNeeded() {
   return (dispatch, getState) => {
     if (shouldFetchTips(getState())) {
       return dispatch(fetchTips())
+    }
+  }
+}
+
+export function fetchSingleTipIfNeeded(tipId) {
+  return (dispatch, getState) => {
+    if (shouldFetchSingleTip(getState(), tipId)) {
+      return dispatch(fetchSingleTip(tipId))
     }
   }
 }

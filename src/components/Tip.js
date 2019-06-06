@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 class Tip extends Component {
 
   username() {
+    if (!this.props.tip)
+      return "";
     const { tipper } = this.props.tip;
     if(tipper) {
       return tipper.username;
@@ -19,7 +21,7 @@ class Tip extends Component {
     return (
       <Card className="Tip">
         <Card.Title className="Tip-header">
-          <Link to={`/tips/${tip.id}`}>
+          <Link to={`/tip/${tip.id}`}>
             {tip.title}
           </Link>
         </Card.Title>

@@ -7,6 +7,7 @@ import './index.css';
 import App from './App';
 import { Login } from './Login';
 import About from './About';
+import TipPage from './TipPage';
 import * as serviceWorker from './serviceWorker';
 
 const store = configureStore()
@@ -18,6 +19,7 @@ ReactDOM.render(
         <Route path="/" exact component={App} />
         <Route path="/login/" component={Login} />
         <Route path="/about/" component={About} />
+        <Route path="/tip/:index" component={TipPage} />
       </div>
     </Router>
   </Provider>,

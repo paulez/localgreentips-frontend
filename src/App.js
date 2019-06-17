@@ -15,7 +15,7 @@ class App extends Component {
     super(props);
     this.state = {
       position: {},
-    }
+    };
   }
 
   componentDidMount() {
@@ -27,7 +27,7 @@ class App extends Component {
   }
 
   render() {
-    const { user, tips } = this.props
+    const { user, tips } = this.props;
     return (
       <React.Fragment>
         <Header />

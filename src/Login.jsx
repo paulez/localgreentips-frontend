@@ -5,8 +5,8 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Header from './Header.js';
-import api from './api.js';
+import Header from './Header';
+import api from './api';
 import { login } from './actions';
 
 class Login extends Component {

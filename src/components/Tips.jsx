@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CardColumns from 'react-bootstrap/CardColumns';
-import Tip from './Tip.js';
+import Tip from './Tip';
 
 class Tips extends Component {
 

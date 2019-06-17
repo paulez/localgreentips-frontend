@@ -5,8 +5,8 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Navbar from 'react-bootstrap/Navbar';
 import './App.css';
-import Header from './Header.js';
-import Tips from './components/Tips.js';
+import Header from './Header';
+import Tips from './components/Tips';
 import { fetchTipsIfNeeded } from './actions';
 
 class App extends Component {

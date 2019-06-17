@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Nav, Navbar, Form, FormControl } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap'
-import HeaderLogin from './components/HeaderLogin.js'
+import { LinkContainer } from 'react-router-bootstrap';
+import HeaderLogin from './components/HeaderLogin';
 
 class Header extends Component {
   constructor(props) {

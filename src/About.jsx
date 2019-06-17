@@ -1,7 +1,7 @@
 import React from 'react';
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom'
-import Header from './Header.js';
+import { NavLink } from 'react-router-dom';
+import Header from './Header';
 
 
 const About = () => (

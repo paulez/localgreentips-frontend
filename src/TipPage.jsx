@@ -5,8 +5,8 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Alert from 'react-bootstrap/Alert';
 import './App.css';
-import Header from './Header.js';
-import Tip from './components/Tip.js';
+import Header from './Header';
+import Tip from './components/Tip';
 import { fetchSingleTipIfNeeded } from './actions';
 
 class TipPage extends Component {

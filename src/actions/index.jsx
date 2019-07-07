@@ -37,13 +37,16 @@ function fetchTips() {
 }
 
 function shouldFetchTips(state) {
-  const tips = state.tips
+  const tips = state.tips;
   if (tips.items === undefined || tips.items.length === 0) {
-    return true
+    console.log("No tip loaded, fetching.");
+    return true;
   } else if (tips.isFetching) {
-    return false
+    console.log("Already fetching");
+    return false;
   } else {
-    return !tips.didLoalAll
+    console.log("Fetched all tips? " + tips.didLoadAll);
+    return !tips.didLoadAll;
   }
 }
 

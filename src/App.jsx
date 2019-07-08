@@ -11,6 +11,20 @@ import Tips from './components/Tips';
 import { fetchTipsIfNeeded } from './actions';
 import { AddTip } from './AddTip';
 
+const AddTipLink = ({ user }) => {
+  if(user && user.username){
+    return (
+      <Link to="/addtip">Create Tip</Link>
+    );
+  } else {
+    return (
+      <div>
+	Please <Link to="/login">login</Link> to create a tip!
+      </div>
+    );
+  }
+};
+
 class App extends Component {
 
   constructor(props) {
@@ -34,13 +48,11 @@ class App extends Component {
       <React.Fragment>
         <Header />
         <Container>
-	  <Row className="Tip-add">
+	  <Row className="Tips-list">
 	    <Col md={{ span:2 }}>
-	      <Link to="/addtip">Create Tip</Link>
+	      <AddTipLink user={user}/>
 	    </Col>
-	  </Row>
-          <Row className="Tips-list">
-            <Col md={{ span: 8, offset: 2 }}>
+            <Col md={{ span: 8 }}>
               {tips.items.length > 0 && (
                 <Tips tips={tips} />
               )}

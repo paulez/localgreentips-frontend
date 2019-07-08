@@ -16,7 +16,7 @@ class TipPage extends Component {
   }
 
   render() {
-    const { tip, tips } = this.props
+    const { tip, tips } = this.props;
     if ( tips.isFetching ) {
       return (
         <React.Fragment>

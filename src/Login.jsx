@@ -17,7 +17,7 @@ class Login extends Component {
       form_username: "",
       form_email: "",
       form_invalid: null,
-    }
+    };
   }
 
   handleSubmit = (event) => {
@@ -36,7 +36,7 @@ class Login extends Component {
         form_invalid: true,
       });
       console.log("login error");
-    })
+    });
     event.preventDefault();
   }
 
@@ -51,7 +51,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    this.usernameInput.focus()
+    this.usernameInput.focus();
   }
 
   render () {

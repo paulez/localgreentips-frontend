@@ -9,6 +9,7 @@ import './App.css';
 import Header from './Header';
 import Tips from './components/Tips';
 import { fetchTipsIfNeeded } from './actions';
+import { fetchLocationIfNeeded } from './actions';
 import { AddTip } from './AddTip';
 
 const AddTipLink = ({ user }) => {
@@ -36,6 +37,7 @@ class App extends Component {
 
   componentDidMount() {
     this.props.dispatch(fetchTipsIfNeeded());
+    this.props.dispatch(fetchLocationIfNeeded());
   }
 
   componentDidUpdate() {

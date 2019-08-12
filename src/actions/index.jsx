@@ -16,6 +16,12 @@ function requestTips() {
   };
 }
 
+function invalidateTips() {
+  return {
+    type: 'INVALIDATE_TIPS'
+  };
+}
+
 function loadTips (tips) {
   return {
     type: 'LOAD_TIPS',
@@ -45,11 +51,25 @@ export const setLocation = location => ({
 });
 
 
-function fetchTips() { 
+function fetchTips(state) { 
   return dispatch => {
     dispatch(requestTips);
-    return api.get("tips/")
-      .then(results => dispatch(loadTips(results.data.results)));
+    var args;
+    if(state.location.didLoad) {
+      console.log("Location loaded");
+      args = {
+	params: {  
+	  latitude: state.location.latitude,
+	  longitude: state.location.longitude
+	}
+      };
+    } else {
+      console.log("Is location loaded ?" + state.location.didLoad);
+      args = {};
+    }
+    return api.get("tips/", args)
+      .then(results => dispatch(loadTips(results.data.results)))
+      .catch(error => console.log(error));
   };
 }
 
@@ -62,8 +82,8 @@ function shouldFetchTips(state) {
     console.log("Already fetching");
     return false;
   } else {
-    console.log("Fetched all tips? " + tips.didLoadAll);
-    return !tips.didLoadAll;
+    console.log("Are tips valid? " + tips.isValid);
+    return !tips.isValid;
   }
 }
 
@@ -71,7 +91,8 @@ function fetchSingleTip(tipId) {
   return dispatch => {
     dispatch(requestTips);
     return api.get("tips/" + tipId)
-      .then(results => dispatch(addTip(results.data)));
+      .then(results => dispatch(addTip(results.data)))
+      .catch(error => console.log(error));
   };
 }
 
@@ -89,7 +110,8 @@ function shouldFetchSingleTip(state, tipId) {
 function fetchCurrentUser() {
   return dispatch => {
     return api.get("rest-auth/user/")
-      .then(results => dispatch(login(results.data.username)));
+      .then(results => dispatch(login(results.data.username)))
+      .catch(error => dispatch(logout()));
   };
 }
 
@@ -99,6 +121,20 @@ function shouldFetchCurrentUser(state) {
   } else {
     return true;
   }
+}
+
+function setLocationAndInvalidateTip(position) {
+  return dispatch => {
+    dispatch(setLocation(position));
+    dispatch(invalidateAndUpdateTips());
+  };
+}
+
+function invalidateAndUpdateTips() {
+  return (dispatch, getState) => {
+    dispatch(invalidateTips());
+    dispatch(fetchTips(getState()));
+  };
 }
 
 function fetchLocation() {
@@ -132,7 +168,7 @@ function shouldFetchLocation(state) {
 export function fetchTipsIfNeeded() {
   return (dispatch, getState) => {
     if (shouldFetchTips(getState())) {
-      return dispatch(fetchTips());
+      return dispatch(fetchTips(getState()));
     }
   }
 }

@@ -1,15 +1,28 @@
-const user = (state = {}, action) => {
+function user(
+  state = {
+    didFetch: false,
+    loggedIn: false,
+    username: ""
+  },
+  action
+) {
   switch (action.type) {
-    case 'LOGIN':
-      return {
-        username: action.username
+  case 'LOGIN':
+    return {
+      didFetch: true,
+      loggedIn: true,
+      username: action.username
       };
-    case 'LOGOUT':
-      return {};
-    default:
-      return state
+  case 'LOGOUT':
+    return {
+      didFetch: true,
+      loggedIn: false,
+      username: ""
+    };
+  default:
+    return state;
   }
-}
+};
 
-export default user
+export default user;
 

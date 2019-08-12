@@ -94,7 +94,7 @@ function fetchCurrentUser() {
 }
 
 function shouldFetchCurrentUser(state) {
-  if (state.user.username) {
+  if (state.user.didFetch) {
     return false;
   } else {
     return true;

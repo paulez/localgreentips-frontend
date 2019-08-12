@@ -40,10 +40,6 @@ class App extends Component {
     this.props.dispatch(fetchLocationIfNeeded());
   }
 
-  componentDidUpdate() {
-    this.props.dispatch(fetchTipsIfNeeded());
-  }
-
   render() {
     const { user, tips } = this.props;
     return (

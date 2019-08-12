@@ -144,7 +144,7 @@ function fetchLocation() {
     dispatch(loadTips);
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
-	position => dispatch(setLocation(position)),
+	position => dispatch(setLocationAndInvalidateTip(position)),
 	error => dispatch(locationError(error)));
     } else {
       dispatch(locationError("The browser doesn't support geolocation."));

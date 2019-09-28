@@ -38,8 +38,8 @@ class AddTip extends Component {
       title: title,
       text: text,
     })
-      .then(data => {
-	this.props.dispatch(addTip(title, text));
+      .then(result => {
+	this.props.dispatch(addTip(result.data));
 	this.props.history.push("/");
       })
       .catch(error => {

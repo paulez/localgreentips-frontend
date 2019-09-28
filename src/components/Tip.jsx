@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown'
 
 class Tip extends Component {
 
@@ -26,7 +27,7 @@ class Tip extends Component {
           </Link>
         </Card.Title>
         <Card.Text>
-          {tip.text}
+          <ReactMarkdown source={tip.text} />
         </Card.Text>
         <Card.Footer>
           <small>{user}</small>

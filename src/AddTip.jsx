@@ -60,7 +60,11 @@ class AddTip extends Component {
   }
 
   cityChoices () {
-    return this.props.cities.items.map( (city) => {
+    const cities = this.props.cities.items;
+    if (cities === undefined || cities.length === 0) {
+      return [];
+    }
+    const choices = this.props.cities.items.map( (city) => {
       return (
         {
           "id": city.id,
@@ -68,10 +72,18 @@ class AddTip extends Component {
         }
       );
     });
+    const region = cities[0].region;
+    const country = cities[0].region.country;
+    const extra = [
+      { "id": country.id, "label": country.name },
+      { "id": region.id, "label": region.name }
+    ]
+    return [...extra, ...choices];
   }
 
   render () {
     const choices = this.cityChoices();
+    const cities = this.props.cities.items;
     return (
       <React.Fragment>
 	      <Header/>
@@ -86,8 +98,11 @@ class AddTip extends Component {
             <Form.Group>
               <Form.Label>Location</Form.Label>
               <Typeahead
+                clearButton
+                defaultSelected={choices.slice(0, 3)}
                 multiple
                 options={choices}
+                placeholder="Choose locations for this tip..."
                 />
             </Form.Group>
 	          <Form.Group>

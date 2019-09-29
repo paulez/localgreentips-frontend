@@ -1,4 +1,5 @@
 import api from '../api';
+import { invalidateAndUpdateCities } from './cities';
 
 export const login = username => ({
   type: 'LOGIN',
@@ -128,6 +129,7 @@ function setLocationAndInvalidateTip(position) {
   return dispatch => {
     dispatch(setLocation(position));
     dispatch(invalidateAndUpdateTips());
+    dispatch(invalidateAndUpdateCities());
   };
 }
 

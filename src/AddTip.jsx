@@ -9,6 +9,8 @@ import Form from 'react-bootstrap/Form';
 import Header from './Header';
 import api from './api';
 import { addTip } from './actions';
+import { fetchLocationIfNeeded } from './actions';
+import { fetchCitiesIfNeeded } from './actions/cities';
 
 class AddTip extends Component {
 
@@ -18,6 +20,11 @@ class AddTip extends Component {
       form_title: "",
       form_text: "",
     };
+  }
+
+  componentDidMount() {
+    this.props.dispatch(fetchLocationIfNeeded());
+    this.props.dispatch(fetchCitiesIfNeeded());
   }
 
   handleTitleChange = (event) => {

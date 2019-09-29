@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
+import { Typeahead } from 'react-bootstrap-typeahead';
 import Header from './Header';
 import api from './api';
 import { addTip } from './actions';
@@ -58,29 +59,48 @@ class AddTip extends Component {
     event.preventDefault();
   }
 
+  cityChoices () {
+    return this.props.cities.items.map( (city) => {
+      return (
+        {
+          "id": city.id,
+          "label": city.name
+        }
+      );
+    });
+  }
+
   render () {
+    const choices = this.cityChoices();
     return (
       <React.Fragment>
-	<Header/>
-	<Container>
-	  <Form onSubmit={this.handleSubmit}>
-	    <Form.Group>
-	      <Form.Label>Title</Form.Label>
-	      <Form.Control
-		type="text"
-		onChange={this.handleTitleChange} />
-	    </Form.Group>
-	    <Form.Group>
-	      <Form.Label>Tip</Form.Label>
-	      <Form.Control
-		as="textarea"
-		rows="5"
-		onChange={this.handleTextChange} />
-	    </Form.Group>
+	      <Header/>
+	      <Container>
+	        <Form onSubmit={this.handleSubmit}>
+	          <Form.Group>
+	            <Form.Label>Title</Form.Label>
+	            <Form.Control
+		            type="text"
+		            onChange={this.handleTitleChange} />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Location</Form.Label>
+              <Typeahead
+                multiple
+                options={choices}
+                />
+            </Form.Group>
+	          <Form.Group>
+	            <Form.Label>Tip</Form.Label>
+	            <Form.Control
+		            as="textarea"
+		            rows="5"
+		            onChange={this.handleTextChange} />
+	          </Form.Group>
 
-	    <Button variant="primary" type="submit">Submit</Button>
-	  </Form>
-	</Container>
+	          <Button variant="primary" type="submit">Submit</Button>
+	        </Form>
+	      </Container>
       </React.Fragment>
     );
   }
@@ -88,9 +108,10 @@ class AddTip extends Component {
 
 
 function mapStatetoProps(state) {
-  const { tips } = state.tips;
+  const { tips, cities } = state;
   return {
-    tips
+    tips,
+    cities
   };
 }
 

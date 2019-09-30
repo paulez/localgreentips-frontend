@@ -67,9 +67,10 @@ class AddTip extends Component {
   }
 
   saveChoices() {
-    const choices = this.state.selected_locations;
+    var choices = this.state.selected_locations;
     if (choices === undefined || choices.length === 0) {
-      return [];
+      choices = this.cityChoices().slice(0, 3);
+      console.log("No choice save, selecting " + choices);
     }
 
     const mapLocation = (locations) => {

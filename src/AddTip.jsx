@@ -20,6 +20,7 @@ class AddTip extends Component {
     this.state = {
       form_title: "",
       form_text: "",
+      selected_locations: [],
     };
   }
 
@@ -37,14 +38,20 @@ class AddTip extends Component {
     this.setState( { form_text: event.target.value});
     event.preventDefault();
   }
-  
+
   handleSubmit = (event) => {
     console.log("post tip");
     var title = this.state.form_title;
     var text = this.state.form_text;
+    var tip_data = {
+      "title": title,
+      "text": text
+    };
+    var location_data = this.saveChoices();
+
     api.post("tips/", {
-      title: title,
-      text: text,
+      ...tip_data,
+      ...location_data,
     })
       .then(result => {
 	this.props.dispatch(addTip(result.data));
@@ -59,6 +66,34 @@ class AddTip extends Component {
     event.preventDefault();
   }
 
+  saveChoices() {
+    const choices = this.state.selected_locations;
+    if (choices === undefined || choices.length === 0) {
+      return [];
+    }
+
+    const mapLocation = (locations) => {
+      return locations.map((location) => {
+	return(
+	  {
+	    "id": location.id,
+	    "name": location.label
+	  }
+	);
+      });
+    };
+
+    const cities = mapLocation(choices.filter((choice) => choice.type === "city"));
+    const countries = mapLocation(choices.filter((choice) => choice.type === "country"));
+    const regions = mapLocation(choices.filter((choice) => choice.type === "region"));
+
+    return {
+      "cities": cities,
+      "countries": countries,
+      "regions": regions
+    };
+  }
+
   cityChoices () {
     const cities = this.props.cities.items;
     if (cities === undefined || cities.length === 0) {
@@ -68,16 +103,17 @@ class AddTip extends Component {
       return (
         {
           "id": city.id,
-          "label": city.name
+          "label": city.name,
+          "type": "city"
         }
       );
     });
     const region = cities[0].region;
     const country = cities[0].region.country;
     const extra = [
-      { "id": country.id, "label": country.name },
-      { "id": region.id, "label": region.name }
-    ]
+      { "id": country.id, "label": country.name, "type": "country" },
+      { "id": region.id, "label": region.name, "type": "region" }
+    ];
     return [...extra, ...choices];
   }
 
@@ -101,6 +137,7 @@ class AddTip extends Component {
                 clearButton
                 defaultSelected={choices.slice(0, 3)}
                 multiple
+                onChange={(selected) => this.setState({selected_locations: selected})}
                 options={choices}
                 placeholder="Choose locations for this tip..."
                 />

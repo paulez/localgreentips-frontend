@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Header from './Header';
@@ -117,7 +114,6 @@ class AddTip extends Component {
 
   render () {
     const choices = this.cityChoices();
-    const cities = this.props.cities.items;
     return (
       <React.Fragment>
 	      <Header/>

@@ -3,14 +3,12 @@ import { connect } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 import './App.css';
 import Header from './Header';
 import Tips from './components/Tips';
 import { fetchTipsIfNeeded } from './actions';
 import { fetchLocationIfNeeded } from './actions';
-import { AddTip } from './AddTip';
 
 const AddTipLink = ({ user }) => {
   if(user && user.username){

@@ -35,12 +35,6 @@ export const addTip = tip => ({
   tip
 });
 
-function requestLocation() {
-  return {
-    type: 'REQUEST_LOCATION'
-  };
-}
-
 export const locationError = error => ({
   type: 'ERROR_LOCATION',
   error

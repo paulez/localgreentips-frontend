@@ -24,7 +24,6 @@ function fetchCities(state) {
     dispatch(requestCities);
     var args;
     if(state.location.didLoad) {
-      console.log("Location loaded");
       args = {
 	params: {
 	  latitude: state.location.latitude,
@@ -32,7 +31,6 @@ function fetchCities(state) {
 	}
       };
     } else {
-      console.log("Is location loaded ?" + state.location.didLoad);
       args = {};
     }
     return api.get("cities", args)
@@ -44,14 +42,11 @@ function fetchCities(state) {
 function shouldFetchCities(state) {
   const cities = state.cities;
   if (cities.isFetching) {
-    console.log("Already fetching");
     return false;
   }
   else if (cities.items === undefined || cities.items.length === 0) {
-    console.log("No city loaded, fetching.");
     return true;
   } else {
-    console.log("Are cities valid? " + cities.isValid);
     return !cities.isValid;
   }
 }

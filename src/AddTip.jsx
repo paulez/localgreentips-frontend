@@ -40,7 +40,6 @@ class AddTip extends Component {
   }
 
   handleSubmit = (event) => {
-    console.log("post tip");
     var title = this.state.form_title;
     var text = this.state.form_text;
     var tip_data = {
@@ -61,7 +60,6 @@ class AddTip extends Component {
 	this.setState({
 	  form_invalid: true,
 	});
-	console.log("tip create error");
       });
     event.preventDefault();
   }
@@ -70,7 +68,6 @@ class AddTip extends Component {
     var choices = this.state.selected_locations;
     if (choices === undefined || choices.length === 0) {
       choices = this.cityChoices().slice(0, 3);
-      console.log("No choice save, selecting " + choices);
     }
 
     const mapLocation = (locations) => {

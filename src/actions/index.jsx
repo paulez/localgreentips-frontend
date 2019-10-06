@@ -52,20 +52,18 @@ export const setLocation = location => ({
 });
 
 
-function fetchTips(state) { 
+function fetchTips(state) {
   return dispatch => {
     dispatch(requestTips);
     var args;
     if(state.location.didLoad) {
-      console.log("Location loaded");
       args = {
-	params: {  
+	params: {
 	  latitude: state.location.latitude,
 	  longitude: state.location.longitude
 	}
       };
     } else {
-      console.log("Is location loaded ?" + state.location.didLoad);
       args = {};
     }
     return api.get("tips/", args)
@@ -77,14 +75,11 @@ function fetchTips(state) {
 function shouldFetchTips(state) {
   const tips = state.tips;
   if (tips.isFetching) {
-    console.log("Already fetching");
     return false;
   }
   else if (tips.items === undefined || tips.items.length === 0) {
-    console.log("No tip loaded, fetching.");
     return true;
   } else {
-    console.log("Are tips valid? " + tips.isValid);
     return !tips.isValid;
   }
 }
@@ -141,7 +136,6 @@ function invalidateAndUpdateTips() {
 }
 
 function fetchLocation() {
-  console.log("Fetching location.");
   return dispatch => {
     dispatch(loadTips);
     if ('geolocation' in navigator) {
@@ -157,13 +151,10 @@ function fetchLocation() {
 function shouldFetchLocation(state) {
   const location = state.location;
   if (location.didLoad) {
-    console.log("Location has been already loaded.");
     return false;
   } else if (location.isFetching) {
-    console.log("Location is being fetched.");
     return false;
   } else {
-    console.log("Location was loaded? " + location.didLoad);
     return !location.didLoad;
   }
 }

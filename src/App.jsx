@@ -20,7 +20,7 @@ const AddTipLink = ({ user }) => {
   } else {
     return (
       <div>
-	Please <Link to="/login">login</Link> to create a tip!
+	Please <Link to="/register">register</Link> or <Link to="/login">login</Link> to create a tip!
       </div>
     );
   }

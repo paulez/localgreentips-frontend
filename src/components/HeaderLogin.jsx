@@ -20,6 +20,7 @@ class HeaderLogin extends Component {
         this.props.dispatch(logout())
       )
       .catch(error => {
+        console.log(error);
         console.log("logout error");
       });
     event.preventDefault();

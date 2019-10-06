@@ -9,7 +9,7 @@ class Header extends Component {
     super(props);
     this.state = {
       search: null,
-    }
+    };
   }
 
 
@@ -21,12 +21,12 @@ class Header extends Component {
         expand="lg"
         variant="dark"
         className="mb-4"
-      >
-        <Navbar.Brand>
-          <LinkContainer to='/'>
-            <Nav.Link>Local Green Tips</Nav.Link>
-          </LinkContainer>
-        </Navbar.Brand>
+        >
+        <LinkContainer to="/">
+          <Navbar.Brand>
+            Local Green Tips
+          </Navbar.Brand>
+        </LinkContainer>
         <Navbar.Toggle />
         <Navbar.Collapse>
         <Nav className="mr-auto">

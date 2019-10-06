@@ -6,6 +6,7 @@ import configureStore from './configureStore';
 import './index.css';
 import App from './App';
 import { Login } from './Login';
+import { Register } from './Register';
 import About from './About';
 import TipPage from './TipPage';
 import { AddTip } from './AddTip';
@@ -17,8 +18,9 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <div>
-	<Route path="/" exact component={App} />
-	<Route path="/login/" component={Login} />
+        <Route path="/" exact component={App} />
+        <Route path="/login/" component={Login} />
+        <Route path="/register/" component={Register} />
 	<Route path="/about/" component={About} />
 	<Route path="/tip/:index" component={TipPage} />
 	<Route path="/addtip/" component={AddTip} />

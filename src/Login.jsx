@@ -21,7 +21,6 @@ class Login extends Component {
   }
 
   handleSubmit = (event) => {
-    console.log("post login");
     var form_username = this.state.form_username;
     api.post("rest-auth/login/", {
       username: form_username,
@@ -31,12 +30,13 @@ class Login extends Component {
       this.props.dispatch(login(form_username));
       this.props.history.push("/");
     })
-    .catch(error => {
-      this.setState({
-        form_invalid: true,
+      .catch(error => {
+        console.log(error);
+        this.setState({
+          form_invalid: true,
+        });
+        console.log("login error");
       });
-      console.log("login error");
-    });
     event.preventDefault();
   }
 
@@ -63,7 +63,7 @@ class Login extends Component {
             <Col md={{span: 6, offset: 4}}>
               <Form onSubmit={this.handleSubmit} >
                 <Form.Group>
-                  <Form.Control 
+                  <Form.Control
                     type="text"
                     placeholder="Enter username"
                     onChange={this.handleUsernameChange}
@@ -71,8 +71,7 @@ class Login extends Component {
                     ref={ref => { this.usernameInput = ref; }}/>
                 </Form.Group>
                  <Form.Group controlId="formBasicPassword">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control 
+                  <Form.Control
                     type="password"
                     placeholder="Password"
                     isInvalid={this.state.form_invalid}

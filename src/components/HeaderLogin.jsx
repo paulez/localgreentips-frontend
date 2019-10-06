@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Nav, Navbar } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap';
 import api from '../api';
 import { logout, fetchCurrentUserIfNeeded } from '../actions';
 
 class HeaderLogin extends Component {
-  
+
   constructor(props) {
     super(props);
-    
+
     this.logoutClick = this.logoutClick.bind(this);
 
   }
@@ -21,7 +21,7 @@ class HeaderLogin extends Component {
       )
       .catch(error => {
         console.log("logout error");
-      })
+      });
     event.preventDefault();
   }
 
@@ -38,15 +38,18 @@ class HeaderLogin extends Component {
             Logout
           </Nav.Link>
         </Nav>
-      )
+      );
     } else {
       return (
         <Nav className="mr-auto">
+          <LinkContainer to='/register'>
+             <Nav.Link>Register</Nav.Link>
+          </LinkContainer>
           <LinkContainer to='/login'>
             <Nav.Link>Login</Nav.Link>
           </LinkContainer>
         </Nav>
-      )
+      );
     }
   }
 }

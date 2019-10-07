@@ -31,8 +31,8 @@ class Register extends Component {
       password1: this.state.form_password1,
       password2: this.state.form_password2
     })
-    .then(data => {
-      this.props.dispatch(login(form_username));
+    .then(result => {
+      this.props.dispatch(login(form_username,result.data.key));
       this.props.history.push("/");
     })
       .catch(error => {

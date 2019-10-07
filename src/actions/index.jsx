@@ -1,14 +1,14 @@
 import api from '../api';
 import { invalidateAndUpdateCities } from './cities';
 
-export const login = username => ({
+export const login = (username, token) => ({
   type: 'LOGIN',
-  username
+  username,
+  token
 });
 
-export const logout = username => ({
-  type: 'LOGOUT',
-  username
+export const logout = () => ({
+  type: 'LOGOUT'
 });
 
 function requestTips() {

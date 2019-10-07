@@ -3,7 +3,7 @@ const dev = {
 };
 
 const prod = {
-  api: "https://api.localgreentips.net/",
+  api: "https://api.localgreentips.com/",
 };
 
 const config = process.env.REACT_APP_STAGE === 'dev'

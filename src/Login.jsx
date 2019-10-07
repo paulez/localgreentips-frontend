@@ -26,8 +26,8 @@ class Login extends Component {
       username: form_username,
       password: this.state.form_password,
     })
-    .then(data => {
-      this.props.dispatch(login(form_username));
+    .then(result => {
+      this.props.dispatch(login(form_username, result.data.key));
       this.props.history.push("/");
     })
       .catch(error => {

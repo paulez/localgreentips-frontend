@@ -45,10 +45,18 @@ class AddTip extends Component {
     };
     var location_data = this.saveChoices();
 
-    api.post("tips/", {
+    var postData = {
       ...tip_data,
       ...location_data,
-    })
+    };
+
+    let axiosConfig = {
+      headers: {
+        "Authorization": "Token " + this.props.user.token
+      }
+    };
+
+    api.post("tips/", postData, axiosConfig)
       .then(result => {
 	this.props.dispatch(addTip(result.data));
 	this.props.history.push("/");
@@ -154,10 +162,11 @@ class AddTip extends Component {
 
 
 function mapStatetoProps(state) {
-  const { tips, cities } = state;
+  const { tips, cities, user } = state;
   return {
     tips,
-    cities
+    cities,
+    user
   };
 }
 

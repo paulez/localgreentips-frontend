@@ -100,7 +100,7 @@ function shouldFetchSingleTip(state, tipId) {
 
 function fetchCurrentUser() {
   return dispatch => {
-    return api.get("rest-auth/user/")
+    return api.get("auth/users/me/")
       .then(results => dispatch(login(results.data.username)))
       .catch(error => dispatch(logout()));
   };

@@ -15,7 +15,7 @@ class HeaderLogin extends Component {
   }
 
   logoutClick = (event) => {
-    api.post("rest-auth/logout/")
+    api.post("auth/token/logout/")
       .then(
         this.props.dispatch(logout())
       )

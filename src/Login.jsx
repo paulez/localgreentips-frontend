@@ -22,12 +22,12 @@ class Login extends Component {
 
   handleSubmit = (event) => {
     var form_username = this.state.form_username;
-    api.post("rest-auth/login/", {
+    api.post("auth/token/login/", {
       username: form_username,
       password: this.state.form_password,
     })
     .then(result => {
-      this.props.dispatch(login(form_username, result.data.key));
+      this.props.dispatch(login(form_username, result.data.auth_token));
       this.props.history.push("/");
     })
       .catch(error => {

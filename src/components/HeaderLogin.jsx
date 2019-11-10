@@ -15,7 +15,12 @@ class HeaderLogin extends Component {
   }
 
   logoutClick = (event) => {
-    api.post("auth/token/logout/")
+    let axiosConfig = {
+      headers: {
+        "Authorization": "Token " + this.props.user.token
+      }
+    };
+    api.post("auth/token/logout/", null, axiosConfig)
       .then(
         this.props.dispatch(logout())
       )

@@ -72,7 +72,7 @@ class AddTip extends Component {
   saveChoices() {
     var choices = this.state.selected_locations;
     if (choices === undefined || choices.length === 0) {
-      choices = this.cityChoices().slice(0, 3);
+      choices = this.cityChoices().slice(0, 4);
     }
 
     const mapLocation = (locations) => {
@@ -89,10 +89,12 @@ class AddTip extends Component {
     const cities = mapLocation(choices.filter((choice) => choice.type === "city"));
     const countries = mapLocation(choices.filter((choice) => choice.type === "country"));
     const regions = mapLocation(choices.filter((choice) => choice.type === "region"));
+    const subregions = mapLocation(choices.filter((choice) => choice.type === "subregion"));
 
     return {
       "cities": cities,
       "countries": countries,
+      "subregions": subregions,
       "regions": regions
     };
   }
@@ -112,11 +114,17 @@ class AddTip extends Component {
       );
     });
     const region = cities[0].region;
-    const country = cities[0].region.country;
+    const subregion = cities[0].subregion;
+    const country = cities[0].country;
     const extra = [
       { "id": country.id, "label": country.name, "type": "country" },
       { "id": region.id, "label": region.name, "type": "region" }
     ];
+    if (subregion) {
+      extra.push(
+        { "id": subregion.id, "label": subregion.name, "type": "subregion" }
+      );
+    }
     return [...extra, ...choices];
   }
 
@@ -137,7 +145,7 @@ class AddTip extends Component {
               <Form.Label>Location</Form.Label>
               <Typeahead
                 clearButton
-                defaultSelected={choices.slice(0, 3)}
+                defaultSelected={choices.slice(0, 4)}
                 multiple
                 onChange={(selected) => this.setState({selected_locations: selected})}
                 options={choices}

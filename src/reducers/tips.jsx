@@ -2,8 +2,9 @@ function tips(
   state = {
     isFetching: false,
     isValid: false,
-    items: []
-  }, 
+    items: [],
+    lastUpdate: null
+  },
   action
 ) {
   switch (action.type) {
@@ -16,7 +17,8 @@ function tips(
     return Object.assign({}, state, {
       isFetching: false,
       isValid: true,
-      items: action.tips
+      items: action.tips,
+      lastUpdate: Date.now()
     });
   case 'ADD_TIP':
     return {

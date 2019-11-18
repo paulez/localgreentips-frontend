@@ -3,7 +3,8 @@ function user(
     didFetch: false,
     loggedIn: false,
     username: "",
-    token: ""
+    token: "",
+    lastUpdate: null
   },
   action
 ) {
@@ -13,14 +14,23 @@ function user(
       didFetch: true,
       loggedIn: true,
       username: action.username,
-      token: action.token
+      token: action.token,
+      lastUpdate: Date.now()
       };
   case 'LOGOUT':
     return {
       didFetch: true,
       loggedIn: false,
       username: "",
-      token: ""
+      token: "",
+      lastUpdate: Date.now()
+    };
+  case 'UPDATE':
+    return {
+      ...state,
+      didFetch: true,
+      username: action.username,
+      lastUpdate: Date.now()
     };
   default:
     return state;

@@ -1,10 +1,18 @@
 import api from '../api';
 import { invalidateAndUpdateCities } from './cities';
 
+const TIP_EXPIRATION = 1 * 60 * 1000;
+const USER_EXPIRATION = 1 * 60 * 1000;
+
 export const login = (username, token) => ({
   type: 'LOGIN',
   username,
   token
+});
+
+export const userUpdate = (username) => ({
+  type: 'UPDATE',
+  username
 });
 
 export const logout = () => ({
@@ -71,7 +79,12 @@ function shouldFetchTips(state) {
   if (tips.isFetching) {
     return false;
   }
-  else if (tips.items === undefined || tips.items.length === 0) {
+  else if (tips.items === undefined ||
+           tips.items.length === 0 ||
+           tips.lastUpdate === null ||
+           tips.lastUpdate === undefined ||
+           tips.lastUpdate + TIP_EXPIRATION < Date.now()
+          ) {
     return true;
   } else {
     return !tips.isValid;
@@ -98,19 +111,28 @@ function shouldFetchSingleTip(state, tipId) {
   }
 }
 
-function fetchCurrentUser() {
+function fetchCurrentUser(state) {
   return dispatch => {
-    return api.get("auth/users/me/")
-      .then(results => dispatch(login(results.data.username)))
+    let axiosConfig = {
+      headers: {
+        "Authorization": "Token " + state.user.token
+      }
+    };
+    return api.get("auth/users/me/", axiosConfig)
+      .then(results => dispatch(userUpdate(results.data.username)))
       .catch(error => dispatch(logout()));
   };
 }
 
 function shouldFetchCurrentUser(state) {
-  if (state.user.didFetch) {
-    return false;
-  } else {
+  if (!state.user.didFetch ||
+      state.user.lastUpdate === null ||
+      state.user.lastUpdate === undefined ||
+      state.user.lastUpdate + USER_EXPIRATION < Date.now()
+     ) {
     return true;
+  } else {
+    return false;
   }
 }
 
@@ -172,7 +194,7 @@ export function fetchSingleTipIfNeeded(tipId) {
 export function fetchCurrentUserIfNeeded() {
   return (dispatch, getState) => {
     if (shouldFetchCurrentUser(getState())) {
-      return dispatch(fetchCurrentUser());
+      return dispatch(fetchCurrentUser(getState()));
     }
   }
 }

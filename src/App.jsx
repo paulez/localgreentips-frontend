@@ -13,7 +13,7 @@ import { fetchLocationIfNeeded } from './actions';
 const AddTipLink = ({ user }) => {
   if(user && user.username){
     return (
-      <Link to="/addtip">Create Tip</Link>
+      <Link to="/tip/add">Create Tip</Link>
     );
   } else {
     return (

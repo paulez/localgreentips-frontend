@@ -4,18 +4,21 @@ import Badge from 'react-bootstrap/Badge';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
-class Tip extends Component {
-
-  username() {
-    if (!this.props.tip)
-      return "";
-    const { tipper } = this.props.tip;
-    if(tipper) {
-      return tipper.username;
+class UserSubtitle extends Component {
+  render () {
+    if(this.props.user) {
+      return (
+	<footer className="blockquote-footer">
+	  by <cite>{this.props.user.username}</cite>
+	</footer>
+      );
     } else {
-      return "";
+      return null;
     }
   }
+}
+
+class Tip extends Component {
 
   render() {
     const { tip } = this.props;
@@ -23,29 +26,28 @@ class Tip extends Component {
       <Card className="Tip">
         <Card.Body>
           <Card.Title className="Tip-header">
-            <Link to={`/tip/${tip.id}`}>
+            <Link to={`/tip/view/${tip.id}`}>
               {tip.title}
             </Link>
           </Card.Title>
-          <Card.Text>
-            <ReactMarkdown source={tip.text} />
-          </Card.Text>
+          <ReactMarkdown source={tip.text} />
+	  <UserSubtitle user={tip.tipper} />
           {tip.cities.map(
             (city) =>
-              <Badge variant="primary">{city.name}</Badge>
+              <Badge key={city.id} variant="primary">{city.name}</Badge>
           )}
       {tip.subregions.map(
             (subregion) =>
-              <Badge variant="secondary">{subregion.name}</Badge>
+          <Badge key={subregion.id} variant="secondary">{subregion.name}</Badge>
       )}
       {tip.regions.map(
             (region) =>
-              <Badge variant="warning">{region.name}</Badge>
+              <Badge key={region.id} variant="warning">{region.name}</Badge>
       )}
       {tip.countries.map(
             (country) =>
-              <Badge variant="info">{country.name}</Badge>
-          )}
+              <Badge key={country.id} variant="info">{country.name}</Badge>
+      )}
         </Card.Body>
       </Card>
     );

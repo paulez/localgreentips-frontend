@@ -4,10 +4,27 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Alert from 'react-bootstrap/Alert';
+import { Link } from 'react-router-dom';
 import './App.css';
 import Header from './Header';
 import Tip from './components/Tip';
 import { fetchSingleTipIfNeeded } from './actions';
+
+const EditTipLink = ({ user, tip }) => {
+  if(user
+     && user.username
+     && tip
+     && tip.tipper
+     && tip.tipper.username === user.username){
+    return (
+      <Link to={`/tip/edit/${tip.id}`}>
+	Edit Tip
+      </Link>
+    );
+  } else {
+    return null;
+  }
+};
 
 class TipPage extends Component {
 
@@ -16,7 +33,7 @@ class TipPage extends Component {
   }
 
   render() {
-    const { tip, tips } = this.props;
+    const { tip, tips, user } = this.props;
     if ( tips.isFetching ) {
       return (
         <React.Fragment>
@@ -38,7 +55,10 @@ class TipPage extends Component {
           <Header />
           <Container>
             <Row className="Tips-list">
-              <Col md={{ span: 8, offset: 2 }}>
+	      <Col md={{ span:2 }}>
+		<EditTipLink user={user} tip={tip} />
+	      </Col>
+              <Col md={{ span: 8 }}>
                 <Tip tip={tip} />
               </Col>
             </Row>
@@ -65,7 +85,7 @@ class TipPage extends Component {
 }
 
 function mapStatetoProps(state, ownProps) {
-  const { tips } = state;
+  const { user, tips } = state;
   const index = Number(ownProps.match.params.index);
   var tip;
   if ( tips.items ) {
@@ -75,6 +95,7 @@ function mapStatetoProps(state, ownProps) {
   }
 
   return {
+    user,
     tips,
     tip,
     index

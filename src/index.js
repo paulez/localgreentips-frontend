@@ -10,7 +10,8 @@ import Login from './Login';
 import Register from './Register';
 import About from './About';
 import TipPage from './TipPage';
-import { AddTip } from './AddTip';
+import AddTip from './AddTip';
+import EditTip from './EditTip';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
@@ -22,8 +23,9 @@ ReactDOM.render(
             <Route path="/login/" component={Login} />
             <Route path="/register/" component={Register} />
 	    <Route path="/about/" component={About} />
-	    <Route path="/tip/:index" component={TipPage} />
-	    <Route path="/addtip/" component={AddTip} />
+            <Route path="/tip/view/:index" component={TipPage} />
+            <Route path="/tip/add/" component={AddTip} />
+            <Route path="/tip/edit/:index" component={EditTip} />
           </div>
         </Router>
       </PersistGate>
